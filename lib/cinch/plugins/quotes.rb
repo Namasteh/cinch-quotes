@@ -38,8 +38,8 @@ module Cinch
         if search.nil? # we are pulling random
           quote = quotes.sample
           m.reply "#{m.user.nick}: ##{quote["id"]} - #{quote["quote"]}"
-        elsif search.to_i != 0 # then we are searching be id
-          quote = quotes[(search.to_i - 1)]
+        elsif search.to_i != 0 # then we are searching by id
+          quote = quotes.find{|q| q["id"] == search.to_i }
           if quote.nil?
             m.reply "#{m.user.nick}: No quotes found."
           else 
