@@ -6,11 +6,15 @@ module Cinch
     class Quotes
       include Cinch::Plugin
 
-      QUOTES_FILE = "data/quotes.yml"
-
       match /addquote (.+)/i,  method: :addquote
       match /quote (.+)/i,     method: :quote
       match "quote",           method: :quote
+
+      def initialize
+        super
+
+        @quotes_file = config[:quotes_file]
+      end
 
       def addquote(m, quote)
         # make the quote
@@ -25,7 +29,7 @@ module Cinch
         existing_quotes[new_quote_index]["id"] = new_quote_index + 1
 
         # write it to the file
-        output = File.new(QUOTES_FILE, 'w')
+        output = File.new(@quotes_file, 'w')
         output.puts YAML.dump(existing_quotes)
         output.close
 
@@ -64,7 +68,7 @@ module Cinch
       protected
 
       def get_quotes
-        output = File.new(QUOTES_FILE, 'r')
+        output = File.new(@quotes_file, 'r')
         quotes = YAML.load(output.read)
         output.close
 
