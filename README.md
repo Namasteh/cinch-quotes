@@ -27,8 +27,10 @@ Install the gem and load it in your Cinch bot:
 
     bot = Cinch::Bot.new do
       configure do |c|
-        # add all required options here
         c.plugins.plugins = [Cinch::Plugins::Quotes] # optionally add more plugins
+        c.plugins.options[Cinch::Plugins::Quotes] = {
+          :quotes_file => '/path/to/quotes.yml'
+        }
       end
     end
 
