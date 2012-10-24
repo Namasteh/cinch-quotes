@@ -10,7 +10,7 @@ module Cinch
       match /quote (.+)/i,     method: :quote
       match "quote",           method: :quote
 
-      def initialize
+      def initialize(*args)
         super
 
         @quotes_file = config[:quotes_file]
